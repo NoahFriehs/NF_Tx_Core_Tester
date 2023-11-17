@@ -33,7 +33,7 @@ int main() {
 
     hello();
 
-    const std::string& filename = "/home/nfriehs/Downloads/crypto_transactions_record_20220814_115030.csv"; //TODO: replace before git push
+    const std::string& filename = "filename.csv";
     std::vector<std::string> data;
 
     std::ifstream file(filename);
