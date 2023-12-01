@@ -46,7 +46,6 @@ int main() {
 
     if (file) {
         std::string line;
-        std::getline(file, line); // Skip header
 
         while (std::getline(file, line)) {
             data.push_back(line);
