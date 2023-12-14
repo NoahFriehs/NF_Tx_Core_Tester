@@ -7,6 +7,9 @@
 
 int main() {
 
+    bool isCrypto = true;
+    bool isCard = false;
+
     void* libHandle = dlopen("../../NF-Tx-Core/cmake-build-debug/libNF_Tx_Core.so", RTLD_LAZY);
 
     if (!libHandle) {
@@ -23,7 +26,42 @@ int main() {
         return 1;
     }
 
-    const std::string& filename = "../crypto_sample_transactions.csv";
+    std::string filename;
+
+    //ask user what mode to use
+    std::cout << "Enter mode: " << std::endl;
+    std::cout << "1. CDC" << std::endl;
+    std::cout << "2. Card" << std::endl;
+    std::cout << "3. Custom" << std::endl;
+    std::cout << "4. Default" << std::endl;
+
+    uint mode;
+    std::cin >> mode;
+
+    switch (mode) {
+        case 1:
+            filename = "../crypto_sample_transactions.csv";
+            break;
+        case 2:
+            filename = "../card_transactions_record_.csv";
+            isCard = true;
+            isCrypto = false;
+            break;
+        case 3:
+            std::cout << "Enter filename: " << std::endl;
+            std::cin >> filename;
+            break;
+        case 4:
+            filename = "../crypto_sample_transactions.csv";
+            break;
+        default:
+            std::cout << "Invalid mode" << std::endl;
+            return 1;
+
+    }
+
+    mode--;
+
     std::vector<std::string> data;
 
     std::ifstream file(filename);
@@ -36,7 +74,7 @@ int main() {
         }
     }
 
-    auto isOk = initWithData(data, 0);
+    auto isOk = initWithData(data, mode);
 
     std::cout << "isOk: " << isOk << std::endl;
 
@@ -79,6 +117,7 @@ int main() {
 
     typedef double (*getTotalMoneySpent_t)();
     auto getTotalMoneySpent = (getTotalMoneySpent_t) dlsym(libHandle, "getTotalMoneySpent");
+    if (!isCrypto) getTotalMoneySpent = (getTotalMoneySpent_t) dlsym(libHandle, "getTotalMoneySpentCard");
 
     if (!getTotalMoneySpent) {
         std::cout << "Error loading symbol: " << dlerror() << std::endl;
@@ -88,6 +127,7 @@ int main() {
 
     typedef double (*getTotalValueOfAssets_t)();
     auto getTotalValueOfAssets = (getTotalValueOfAssets_t) dlsym(libHandle, "getTotalValueOfAssets");
+    if (!isCrypto) getTotalValueOfAssets = (getTotalValueOfAssets_t) dlsym(libHandle, "getTotalValueOfAssetsCard");
 
     if (!getTotalValueOfAssets) {
         std::cout << "Error loading symbol: " << dlerror() << std::endl;
@@ -97,6 +137,7 @@ int main() {
 
     typedef double (*getTotalBonus_t)();
     auto getTotalBonus = (getTotalBonus_t) dlsym(libHandle, "getTotalBonus");
+    if (!isCrypto) getTotalBonus = (getTotalBonus_t) dlsym(libHandle, "getTotalBonusCard");
 
     if (!getTotalBonus) {
         std::cout << "Error loading symbol: " << dlerror() << std::endl;
@@ -104,15 +145,98 @@ int main() {
         return 1;
     }
 
+    typedef double (*getValueOfAssets_t)(int walletId);
+    auto getValueOfAssets = (getValueOfAssets_t) dlsym(libHandle, "getValueOfAssets");
+
+    if (!getValueOfAssets) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef double (*getBonus_t)(int walletId);
+    auto getBonus = (getBonus_t) dlsym(libHandle, "getBonus");
+
+    if (!getBonus) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef double (*getMoneySpent_t)(int walletId);
+    auto getMoneySpent = (getMoneySpent_t) dlsym(libHandle, "getMoneySpent");
+
+    if (!getMoneySpent) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef std::vector<std::string> (*getWalletsAsStrings_t)();
+    auto getWalletsAsStrings = (getWalletsAsStrings_t) dlsym(libHandle, "getWalletsAsStrings");
+    if (!isCrypto) getWalletsAsStrings = (getWalletsAsStrings_t) dlsym(libHandle, "getCardWalletsAsStrings");
+
+    if (!getWalletsAsStrings) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef std::vector<std::string> (*getTransactionsAsStrings_t)();
+    auto getTransactionsAsStrings = (getTransactionsAsStrings_t) dlsym(libHandle, "getTransactionsAsStrings");
+    if (!isCrypto) getTransactionsAsStrings = (getTransactionsAsStrings_t) dlsym(libHandle, "getCardTransactionsAsStrings");
+
+    if (!getTransactionsAsStrings) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef std::string (*getWalletAsString_t)(int walletId);
+    auto getWalletAsString = (getWalletAsString_t) dlsym(libHandle, "getWalletAsString");
+
+
     std::vector<double> prices;
     for (const auto &item: currencies) {
         prices.push_back(getPrice(item));
     }
 
     setPrice(prices);
-    std::cout << "Total money spent: " << getTotalMoneySpent() << std::endl;
-    std::cout << "Total value of assets: " << getTotalValueOfAssets() << std::endl;
-    std::cout << "Total bonus: " << getTotalBonus() << std::endl;
+
+    if (isCrypto) {
+        std::cout << "Currencies: " << std::endl;
+        for (const auto &item: currencies) {
+            std::cout << item << "\n";
+        }
+    }
+
+    if (isCrypto) {
+        std::cout << "Total money spent: " << getTotalMoneySpent() << std::endl;
+        std::cout << "Total value of assets: " << getTotalValueOfAssets() << std::endl;
+    }
+    else
+    {
+        std::cout << "Total money spent: " << getTotalValueOfAssets() << std::endl;
+    }
+    if (isCrypto) std::cout << "Total bonus: " << getTotalBonus() << std::endl;
+
+    if (isCrypto) std::cout << "Value of assets for wallet 2: " << getValueOfAssets(2) << std::endl;
+    if (isCrypto) std::cout << "Bonus for wallet 2: " << getBonus(2) << std::endl;
+    std::cout << "Money spent for wallet 2: " << getMoneySpent(2) << std::endl;
+
+    std::cout << "Wallet 2: " << getWalletAsString(2) << std::endl;
+
+    std::cout << "Wallets: " << std::endl;
+    for (const auto& item: getWalletsAsStrings()) {
+        //std::cout << item << "\n";
+    }
+    std::cout << "Transactions: " << std::endl;
+    for (const auto& item: getTransactionsAsStrings()) {
+        //std::cout << item << "\n";
+    }
+
+    std::endl(std::cout);
+
 
     return 0;
 }
