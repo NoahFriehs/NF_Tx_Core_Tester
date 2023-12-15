@@ -195,6 +195,38 @@ int main() {
     typedef std::string (*getWalletAsString_t)(int walletId);
     auto getWalletAsString = (getWalletAsString_t) dlsym(libHandle, "getWalletAsString");
 
+    if (!getWalletAsString) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef void (*save_t)();
+    auto save = (save_t) dlsym(libHandle, "save");
+
+    if (!save) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef void (*loadData_t)();
+    auto loadData = (loadData_t) dlsym(libHandle, "loadData");
+
+    if (!loadData) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef void (*calculateBalances_t)();
+    auto calculateBalances = (calculateBalances_t) dlsym(libHandle, "calculateBalances");
+
+    if (!calculateBalances) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
 
     std::vector<double> prices;
     for (const auto &item: currencies) {
@@ -237,6 +269,28 @@ int main() {
 
     std::endl(std::cout);
 
+    std::cout << "Saving data..." << std::endl;
+    save();
+    std::cout << "Done" << std::endl;
+
+
+    std::cout << "Loading data..." << std::endl;
+    loadData();
+    std::cout << "Done" << std::endl;
+
+    std::cout << "Calculating balances..." << std::endl;
+    calculateBalances();
+    std::cout << "Done" << std::endl;
+
+    if (isCrypto) {
+        std::cout << "Total money spent: " << getTotalMoneySpent() << std::endl;
+        std::cout << "Total value of assets: " << getTotalValueOfAssets() << std::endl;
+        std::cout << "Total bonus: " << getTotalBonus() << std::endl;
+    }
+    else
+    {
+        std::cout << "Total money spent: " << getTotalValueOfAssets() << std::endl;
+    }
 
     return 0;
 }
