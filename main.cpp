@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 #include "StaticPrices.h"
 
 int main() {
@@ -17,7 +18,7 @@ int main() {
         return 1;
     }
 
-    typedef bool (*initWithData_t)(std::vector<std::string> data, uint mode);
+    typedef bool (*initWithData_t)(std::vector<std::string> data, uint mode,  std::string logFilePath);
     auto initWithData = (initWithData_t) dlsym(libHandle, "initWithData");
 
     if (!initWithData) {
@@ -74,11 +75,20 @@ int main() {
         }
     }
 
-    auto isOk = initWithData(data, mode);
+    //create log file
+    std::ofstream logFile;
+    logFile.open("log.txt");
+    logFile.close();
+    //get absolute path to log file
+    std::string logFilePath = std::filesystem::current_path().string() + "/log.txt";
+    std::string savePath = std::filesystem::current_path().string() + "/save/";
+
+
+    auto isOk = initWithData(data, mode, logFilePath);
 
     std::cout << "isOk: " << isOk << std::endl;
 
-    typedef bool (*init_t)();
+    typedef bool (*init_t)(std::string logFilePath, std::string loadDirPath);
     auto init = (init_t) dlsym(libHandle, "init");
 
     if (!init) {
@@ -87,7 +97,7 @@ int main() {
         return 1;
     }
 
-    auto isOk2 = init();
+    auto isOk2 = init(logFilePath, savePath);
 
     std::cout << "isOk2: " << isOk2 << std::endl;
 
@@ -201,7 +211,7 @@ int main() {
         return 1;
     }
 
-    typedef void (*save_t)();
+    typedef void (*save_t)(std::string filePath);
     auto save = (save_t) dlsym(libHandle, "save");
 
     if (!save) {
@@ -210,7 +220,7 @@ int main() {
         return 1;
     }
 
-    typedef void (*loadData_t)();
+    typedef void (*loadData_t)(std::string filePath);
     auto loadData = (loadData_t) dlsym(libHandle, "loadData");
 
     if (!loadData) {
@@ -223,6 +233,53 @@ int main() {
     auto calculateBalances = (calculateBalances_t) dlsym(libHandle, "calculateBalances");
 
     if (!calculateBalances) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef void (*setWalletData_t)(std::vector<std::string> data);
+    auto setWalletData = (setWalletData_t) dlsym(libHandle, "setWalletData");
+
+    if (!setWalletData) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef void (*setCardWalletData_t)(std::vector<std::string> data);
+    auto setCardWalletData = (setCardWalletData_t) dlsym(libHandle, "setCardWalletData");
+
+    if (!setCardWalletData) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef void (*setTransactionData_t)(std::vector<std::string> data);
+    auto setTransactionData = (setTransactionData_t) dlsym(libHandle, "setTransactionData");
+
+    if (!setTransactionData) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+    typedef void (*setCardTransactionData_t)(std::vector<std::string> data);
+    auto setCardTransactionData = (setCardTransactionData_t) dlsym(libHandle, "setCardTransactionData");
+
+    if (!setCardTransactionData) {
+        std::cout << "Error loading symbol: " << dlerror() << std::endl;
+        dlclose(libHandle);
+        return 1;
+    }
+
+
+
+    typedef void (*clearAll_t)();
+    auto clearAll = (clearAll_t) dlsym(libHandle, "clearAll");
+
+    if (!clearAll) {
         std::cout << "Error loading symbol: " << dlerror() << std::endl;
         dlclose(libHandle);
         return 1;
@@ -267,16 +324,32 @@ int main() {
         //std::cout << item << "\n";
     }
 
-    std::endl(std::cout);
+    //std::endl(std::cout);
 
-    std::cout << "Saving data..." << std::endl;
-    save();
+    std::cout << "\n\nSaving data..." << std::endl;
+
+    std::cout << "Save path: " << savePath << std::endl;
+
+    //make sure save directory exists
+    std::filesystem::create_directory(savePath);
+
+    //measure time
+    auto start = std::chrono::high_resolution_clock::now();
+
+    save(savePath);
+
+    auto end = std::chrono::high_resolution_clock::now();
     std::cout << "Done" << std::endl;
+
+    std::cout << "Saving took: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
 
 
     std::cout << "Loading data..." << std::endl;
-    loadData();
+    start = std::chrono::high_resolution_clock::now();
+    loadData(savePath);
+    end = std::chrono::high_resolution_clock::now();
     std::cout << "Done" << std::endl;
+    std::cout << "Loading took: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
 
     std::cout << "Calculating balances..." << std::endl;
     calculateBalances();
@@ -291,6 +364,51 @@ int main() {
     {
         std::cout << "Total money spent: " << getTotalValueOfAssets() << std::endl;
     }
+
+    std::cout << "\n\nTesting setWalletData, setCardWalletData, setTransactionData, setCardTransactionData" << std::endl;
+
+    auto wallets = getWalletsAsStrings();
+    auto cardWallets = getWalletsAsStrings();
+    auto transactions = getTransactionsAsStrings();
+    auto cardTransactions = getTransactionsAsStrings();
+
+    clearAll();
+
+    if (isCrypto) {
+        setWalletData(wallets);
+        setTransactionData(transactions);
+    }
+
+    if (isCard) {
+        setCardWalletData(cardWallets);
+        setCardTransactionData(cardTransactions);
+    }
+
+    setPrice(prices);
+
+    if (isCrypto) {
+        std::cout << "Total money spent: " << getTotalMoneySpent() << std::endl;
+        std::cout << "Total value of assets: " << getTotalValueOfAssets() << std::endl;
+    }
+    else
+    {
+        std::cout << "Total money spent: " << getTotalValueOfAssets() << std::endl;
+    }
+    if (isCrypto) std::cout << "Total bonus: " << getTotalBonus() << std::endl;
+
+    if (isCrypto) std::cout << "Value of assets for wallet 2: " << getValueOfAssets(2) << std::endl;
+    if (isCrypto) std::cout << "Bonus for wallet 2: " << getBonus(2) << std::endl;
+    std::cout << "Money spent for wallet 2: " << getMoneySpent(2) << std::endl;
+
+    std::cout << "Wallet 2: " << getWalletAsString(2) << std::endl;
+
+    //print all wallets
+    std::cout << "Wallets: " << std::endl;
+    for (const auto& item: wallets) {
+        //std::cout << item << "\n";
+    }
+
+
 
     return 0;
 }
