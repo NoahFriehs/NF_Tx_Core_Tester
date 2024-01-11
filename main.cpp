@@ -13,9 +13,13 @@ int main() {
     bool extended = false;
 
     // Load the shared library
+#ifdef _WIN32
+    void* libHandle = loadLibrary(R"(..\..\NF_Tx_Core\cmake-build-debug\libNF_Tx_Core.dll)");
+#else
     void* libHandle = loadLibrary("../../NF-Tx-Core/cmake-build-debug/libNF_Tx_Core.so");
+#endif
 
-    auto initWithData = loadSymbol<bool (*)(std::vector<std::string>, uint, std::string)>(libHandle, "initWithData");
+    auto initWithData = loadSymbol<bool (*)(std::vector<std::string>, int, std::string)>(libHandle, "initWithData");
 
     std::string filename;
 
@@ -26,7 +30,7 @@ int main() {
     std::cout << "3. Custom" << std::endl;
     std::cout << "4. Default" << std::endl;
 
-    uint mode;
+    int mode;
     std::cin >> mode;
 
     switch (mode) {
