@@ -1,6 +1,3 @@
-//
-// Created by nfriehs on 1/4/24.
-//
 
 #ifndef NF_TX_CORE_TESTER_LIBLOADER_H
 #define NF_TX_CORE_TESTER_LIBLOADER_H
