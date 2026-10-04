@@ -2,8 +2,9 @@
 #include <vector>
 #include <fstream>
 #include <filesystem>
-#include "StaticPrices.h"
 #include "LibLoader.h"
+#include "StaticPrices.h"
+#include "AssetValue.h"
 
 int main() {
 
@@ -29,6 +30,8 @@ int main() {
     std::cout << "2. Card" << std::endl;
     std::cout << "3. Custom" << std::endl;
     std::cout << "4. Default" << std::endl;
+    std::cout << "5. Kraken" << std::endl;
+    std::cout << "6. BlockPit (Test CSV)" << std::endl;
 
     int mode;
     std::cin >> mode;
@@ -66,8 +69,35 @@ int main() {
             break;
         case 4:
             filename = "../crypto_sample_transactions.csv";
-            mode = 1;
+            mode = 1;   // Default = CDC
             break;
+        case 5:
+            filename = "../crypto_sample_transactions.csv";  // Use the same Kraken test file
+            mode = 5;   // Kraken enum value (will become 4 after mode--)
+            break;
+        case 6: {
+            // Try multiple possible paths for the BlockPit test CSV
+            std::string possiblePaths[] = {
+                "blockpit_transactions.csv",
+                "../blockpit_transactions.csv",
+                "./blockpit_transactions.csv"
+            };
+            filename = "";
+            for (const auto& path : possiblePaths) {
+                if (std::filesystem::exists(path)) {
+                    filename = path;
+                    std::cout << "Found CSV at: " << path << std::endl;
+                    break;
+                }
+            }
+            if (filename.empty()) {
+                std::cout << "ERROR: blockpit_transactions.csv not found" << std::endl;
+                return 1;
+            }
+            mode = 6;   // BlockPit enum value (will become 5 after mode--)
+            isCrypto = true;
+            break;
+        }
         default:
             std::cout << "Invalid mode" << std::endl;
             return 1;
@@ -75,7 +105,7 @@ int main() {
     }
 
     //ask user if they want extended output
-    std::cout << "Extended output? (y/n)" << std::endl;
+    std::cout << "Extended output (show all wallets/transactions)? (y/n)" << std::endl;
     std::string extendedInput;
     std::cin >> extendedInput;
     if (extendedInput == "y") extended = true;
@@ -84,6 +114,32 @@ int main() {
         std::cout << "Invalid input" << std::endl;
         return 1;
     }
+
+    //ask user for price source
+    bool useRealPrices = false;
+    if (isCrypto) {
+        std::cout << "\nPrice source: " << std::endl;
+        std::cout << "1. Static hardcoded prices (fast, no network)" << std::endl;
+        std::cout << "2. Real prices from CoinGecko API (requires internet, cached 24h)" << std::endl;
+        std::cout << "Enter price source: " << std::endl;
+        int priceSource;
+        std::cin >> priceSource;
+        if (priceSource == 1) {
+            useRealPrices = false;
+            std::cout << "Using static prices\n";
+        } else if (priceSource == 2) {
+            useRealPrices = true;
+            std::cout << "Using real prices from CoinGecko (cached 24h)\n";
+        } else {
+            std::cout << "Invalid input, using static prices\n";
+        }
+    }
+
+    // Print a summary header
+    std::cout << "\n========================================" << std::endl;
+    std::cout << "  Loading: " << filename << std::endl;
+    std::cout << "  Mode: " << (mode + 1) << " (" << (isCrypto ? "Crypto" : "Card") << ")" << std::endl;
+    std::cout << "========================================\n" << std::endl;
 
     mode--;
 
@@ -153,14 +209,49 @@ int main() {
     auto setCardTransactionData = loadSymbol<void (*)(std::vector<std::string>)>(libHandle, "setCardTransactionData");
     auto clearAll = loadSymbol<void (*)()>(libHandle, "clearAll");
 
-
-    // Set the prices
+    
+    // Get prices (static or real from CoinGecko)
+    std::cout << "Setting prices...\n";
     std::vector<double> prices;
-    for (const auto &item: currencies) {
-        prices.push_back(getPrice(item));
+    
+    if (useRealPrices && isCrypto) {
+        AssetValue assetValue;
+        // Bulk fetch ALL prices at once - this is much faster and avoids rate limits
+        std::cout << "Fetching prices from CoinGecko API (cached 24h to disk)...\n";
+        assetValue.loadPrices(currencies);
+        // Now get all prices (with caching)
+        for (const auto &item: currencies) {
+            prices.push_back(assetValue.getPrice(item));
+        }
+    } else {
+        // Use static prices from StaticPrices.h
+        std::cout << "Using static hardcoded prices\n";
+        for (const auto &item: currencies) {
+            prices.push_back(getPrice(item));
+        }
     }
 
     setPrice(prices);
+
+    if (isCrypto) {
+        std::cout << "--- Asset Value Audit ---\n";
+        double calculatedTotal = 0;
+        for (size_t i = 0; i < currencies.size(); ++i) {
+            std::vector<double> singlePrice(currencies.size(), 0.0);
+            singlePrice[i] = prices[i];
+            setPrice(singlePrice);
+            double val = getTotalValueOfAssets();
+            if (val > 0) {
+                std::cout << currencies[i] << ": " << val << " EUR (at price " << prices[i] << ")\n";
+                calculatedTotal += val;
+            }
+        }
+        std::cout << "Audit Total: " << calculatedTotal << " EUR\n";
+        // Reset to full prices to check total
+        setPrice(prices);
+        std::cout << "Core Total: " << getTotalValueOfAssets() << " EUR\n";
+        std::cout << "------------------------\n";
+    }
 
     if (isCrypto) {
         std::cout << "Currencies: " << std::endl;

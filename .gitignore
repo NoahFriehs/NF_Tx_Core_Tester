@@ -2,3 +2,8 @@
 /cmake-build-debug/
 # IDE files
 .idea/
+# Real financial data - never commit (synthetic fixtures live in the core repo's test data dir)
+/blockpit_transactions.csv
+/card_transactions_record_.csv
+/crypto_sample_transactions.csv
+/static_prices_updated.txt
