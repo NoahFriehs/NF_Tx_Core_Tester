@@ -11,6 +11,36 @@ This C++ program serves as a tester for the NF_TX_Core library, which manages fi
 5. Perform operations such as initialization, setting data, calculating balances, saving, and loading.
 6. Retrieve and display results.
 
+
+## Wallet dump tool (`NF_Tx_Core_WalletDump`)
+
+A small CLI tool that dumps the core's **daily wallet series**
+(`initWithData` -> `getDailyWalletSeries` — the same calls the Android
+app makes) for a transaction CSV. It is the ground truth for the balance
+side of the app's charts, without re-implementing trade semantics outside
+the core.
+
+```
+NF_Tx_Core_WalletDump [path/to/libNF_Tx_Core.so] <csv-file> [mode] [out-file] [date]
+```
+
+- `so-path` — optional; default `../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so`
+- `mode` — `0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit` (default 5)
+- `out-file` — default `wallet_series.txt`
+- `date` — optional `YYYY-MM-DD`: writes a per-symbol snapshot
+  (`CUR;BALANCE;BONUS`, last series day at/before that date) instead of the
+  full series
+
+Output line format (core shape): `CUR;YYYY-MM-DD;BALANCE;BONUS`, ascending
+per symbol. The core's own log lines go to the console; the output file is
+clean.
+
+Build and run:
+
+```
+cmake -B cmake-build-debug && cmake --build cmake-build-debug -j
+./cmake-build-debug/NF_Tx_Core_WalletDump /path/to/trans.csv 5
+
 ## License
 
 Shield: [![CC BY-NC-ND 4.0][cc-by-nc-nd-shield]][cc-by-nc-nd]

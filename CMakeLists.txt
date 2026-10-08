@@ -20,3 +20,11 @@ if(WIN32)
 else()
     target_link_libraries(NF_Tx_Core_Tester PRIVATE dl pthread)
 endif()
+
+# Wallet series dumper (CLI tool): NF_Tx_Core_WalletDump [so] <csv> [mode] [out] [date]
+add_executable(NF_Tx_Core_WalletDump wallet_dump.cpp)
+if(WIN32)
+    target_link_libraries(NF_Tx_Core_WalletDump PRIVATE ntdll)
+else()
+    target_link_libraries(NF_Tx_Core_WalletDump PRIVATE dl pthread)
+endif()

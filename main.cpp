@@ -15,9 +15,9 @@ int main() {
 
     // Load the shared library
 #ifdef _WIN32
-    void* libHandle = loadLibrary(R"(..\..\NF_Tx_Core\cmake-build-debug\libNF_Tx_Core.dll)");
+    void* libHandle = loadLibrary(R"(..\..\Nf_Tx_Core\cmake-build-debug\libNF_Tx_Core.dll)");
 #else
-    void* libHandle = loadLibrary("../../NF-Tx-Core/cmake-build-debug/libNF_Tx_Core.so");
+    void* libHandle = loadLibrary("../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so");
 #endif
 
     auto initWithData = loadSymbol<bool (*)(std::vector<std::string>, int, std::string)>(libHandle, "initWithData");
@@ -165,7 +165,7 @@ int main() {
     std::string savePath = std::filesystem::current_path().string() + "/save/";
 
 
-    auto isOk = initWithData(data, mode, logFilePath);
+    auto isOk = initWithData(data, mode, logFilePath, 5000);
 
     std::cout << "isOk: " << isOk << std::endl;
 
