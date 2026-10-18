@@ -20,7 +20,9 @@ int main() {
     void* libHandle = loadLibrary("../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so");
 #endif
 
-    auto initWithData = loadSymbol<bool (*)(std::vector<std::string>, int, std::string)>(libHandle, "initWithData");
+    // 4-arg core signature: the 4th parameter is the parse budget in ms
+    // (0 = no budget), added with the core's parse-timeout work.
+    auto initWithData = loadSymbol<bool (*)(const std::vector<std::string>&, int, const std::string&, long long)>(libHandle, "initWithData");
 
     std::string filename;
 
