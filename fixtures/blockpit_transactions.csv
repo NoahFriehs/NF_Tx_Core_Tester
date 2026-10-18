@@ -1,0 +1,201 @@
+Date (UTC);Integration Name;Label;Outgoing Asset;Outgoing Amount;Incoming Asset;Incoming Amount;Fee Asset (optional);Fee Amount (optional);Comment (optional);Trx. ID (optional);Source Type;Source Name
+01.10.2025 21:30:23;Bitpanda Depot - Main;Airdrop;;;SCX;0.00033;;;Reward;;API;Bitpanda
+29.09.2025 17:07:01;Bitpanda Depot - Staking;Staking;;;ETH;0.00005130;;;Staking Reward;;API;Bitpanda
+09.09.2025 19:36:11;Bitpanda Depot - Main;Trade;Laptop;4.31497;BCH;0.01997541;;;Swap;;API;Bitpanda
+11.08.2025 16:53:06;Bitpanda Depot - Staking;Staking;;;ETH;0.00005113;;;Staking Reward;;API;Bitpanda
+26.05.2025 16:09:23;Bitpanda Depot - Staking;Staking;;;ETH;0.00005087;;;Staking Reward;;API;Bitpanda
+14.04.2025 20:07:09;Bitpanda Depot - Staking;Staking;;;ETH;0.00005073;;;Staking Reward;;API;Bitpanda
+27.02.2025 12:46:18;Bitpanda Depot - Main;Withdrawal;OBT;15.87305;;;;;Merger Crypto;;API;Bitpanda
+27.02.2025 12:46:18;Bitpanda Depot - Main;Deposit;;;OOB;15.87305;;;Merger Crypto;;API;Bitpanda
+24.02.2025 16:21:48;Bitpanda Depot - Staking;Staking;;;VSN;0.25752716;;;Staking Reward;;API;Bitpanda
+31.01.2025 18:14:11;Kraken _;Non-Taxable In;;;EUR;435;;;;;API;Kraken
+30.01.2025 12:40:52;Crypto.org Depot;Gift Received;;;CRO;0;;;Fallback_total;;Chain;Cronos POS
+13.01.2025 16:37:27;Bitpanda Depot - Staking;Staking;;;VSN;0.25511094;;;Staking Reward;;API;Bitpanda
+23.12.2024 14:57:18;Bitpanda Depot - Main;Airdrop;;;RVV;49.96866;;;Reward;;API;Bitpanda
+02.12.2024 16:12:24;Bitpanda Depot - Staking;Staking;;;ETH;0.00005155;;;Staking Reward;;API;Bitpanda
+14.11.2024 15:46:21;Bitpanda Depot - Main;Airdrop;;;SOLV;26.7146;;;Reward;;API;Bitpanda
+21.10.2024 16:30:29;Bitpanda Depot - Staking;Staking;;;ETH;0.00005140;;;Staking Reward;;API;Bitpanda
+17.10.2024 10:21:06;Kraken _;Trade;EUR;86.99957;BTC;0.00097752;KFEE;25.44;;;API;Kraken
+02.09.2024 17:00:35;Bitpanda Depot - Staking;Staking;;;VSN;0.24760813;;;Staking Reward;;API;Bitpanda
+22.07.2024 16:45:58;Bitpanda Depot - Staking;Staking;;;VSN;0.17532143;;;Staking Reward;;API;Bitpanda
+19.07.2024 19:02:46;Bitpanda Depot - Main;Fee;VSN;3.69404848;;;;;Vision Fee;;API;Bitpanda
+19.07.2024 19:02:45;Bitpanda Depot - Main;Trade;EUR;40;BCH;0.08970980;;;;;API;Bitpanda
+16.06.2024 12:15:06;Bitpanda Depot - Main;Airdrop;;;BEST;0.03167154;;;Reward, BEST;;API;Bitpanda
+13.06.2024 14:34:49;Bitpanda Depot - Main;Lost;AAX;17.83705;;;;;Fund deduction;;API;Bitpanda
+13.05.2024 16:53:51;Bitpanda Depot - Staking;Staking;;;ETH;0.00005483;;;Staking Reward;;API;Bitpanda
+20.04.2024 22:00:00;"Crypto com Exchange ";Cashback;;;BCH;0.02589397;;;;;Manual;Manual
+12.03.2024 17:42:41;Bitpanda Depot - Main;Airdrop;;;LINGO;2.81336;;;Reward;;API;Bitpanda
+18.02.2024 03:35:31;Kraken _;Trade;EUR;86.99964;BTC;0.00094875;KFEE;22.84;;;API;Kraken
+16.01.2024 13:52:26;Bitpanda Depot - Main;Airdrop;;;HAI;5.50731;;;Reward;;API;Bitpanda
+04.01.2024 19:59:09;Bitpanda Depot - Main;Non-Taxable In;;;EUR;17;;;;;API;Bitpanda
+24.12.2023 14:29:17;Bitpanda Depot - Main;Airdrop;;;EYWA;3.82029;;;Reward;;API;Bitpanda
+11.12.2023 20:11:15;Kraken _;Interest;;;BTC;0.000000;;;;;API;Kraken
+10.12.2023 12:40:43;Bitpanda Depot - Main;Airdrop;;;BEST;0.03140243;;;Reward;;API;Bitpanda
+02.12.2023 05:10:12;Bitpanda Depot - Main;Staking;;;ETH;0.00321099;;;Collective TX for all until now earned staking;;Manual;Manual
+15.11.2023 15:38:56;Bitpanda Depot - Main;Airdrop;;;CAT;1739.61489;;;Reward;;API;Bitpanda
+23.10.2023 20:11:09;Kraken _;Interest;;;BTC;0.000001;;;;;API;Kraken
+05.10.2023 15:40:16;Bitpanda Depot - Main;Airdrop;;;TRIO;0.34482;;;Reward;;API;Bitpanda
+22.09.2023 08:28:35;Bitpanda Depot - Main;Trade;LYX;0.19511;BEST;0.78653279;;;;;API;Bitpanda
+22.09.2023 08:27:54;Bitpanda Depot - Main;Trade;FURY;1.57693;BEST;0.40285880;;;;;API;Bitpanda
+11.09.2023 20:11:32;Kraken _;Interest;;;BTC;0.000001;;;;;API;Kraken
+24.08.2023 13:08:52;Bitpanda Depot - Main;Airdrop;;;ARTY;1.95563;;;Reward;;API;Bitpanda
+31.07.2023 20:11:20;Kraken _;Interest;;;BTC;0.00000;;;;;API;Kraken
+22.07.2023 12:53:08;Bitpanda Depot - Main;Trade;O4DX;3.22081824;BEST;0.28178623;;;;;API;Bitpanda
+26.06.2023 14:02:30;Bitpanda Depot - Main;Airdrop;;;ORFY;1.29728;;;Reward;;API;Bitpanda
+19.06.2023 20:11:28;Kraken _;Interest;;;BTC;0.00000;;;;;API;Kraken
+08.06.2023 09:12:03;Bitpanda Depot - Main;Trade;SQR;0.75504979;BEST;0.25704557;;;;;API;Bitpanda
+07.06.2023 04:48:14;Bitpanda Depot - Main;Airdrop;;;BEST;0.00101879;;;Instant trade bonus;;API;Bitpanda
+29.05.2023 17:38:23;Bitpanda Depot - Main;Trade;MYRO;3.47313357;BCH;0.0020077;;;;;API;Bitpanda
+12.05.2023 08:11:32;Kraken _;Interest;;;BTC;0.000000;;;;;API;Kraken
+11.05.2023 16:52:27;Bitpanda Depot - Main;Airdrop;;;BLAZE;303.86;;;Reward;;API;Bitpanda
+10.04.2023 22:13:29;Bitpanda Depot - Main;Airdrop;;;SERSH;0.49847628;;;Reward;;API;Bitpanda
+07.04.2023 08:11:28;Kraken _;Interest;;;BTC;0.000000;;;;;API;Kraken
+25.03.2023 23:21:43;Crypto.org Depot;Auto-Balancing In;;;CRO;8.01914562;;;;;Manual;Manual
+06.03.2023 16:12:44;Kraken _;Trade;EUR;43.49968;BTC;0.00072986;KFEE;7.56;;;API;Kraken
+24.02.2023 08:11:12;Kraken _;Interest;;;BTC;0.000000;;;;;API;Kraken
+07.02.2023 15:08:57;Bitpanda Depot - Main;Airdrop;;;GTAI;0.24708745;;;Reward;;API;Bitpanda
+13.01.2023 08:11:11;Kraken _;Interest;;;BTC;0.000000;;;;;API;Kraken
+20.12.2022 17:00:17;Bitpanda Pro Depot;Non-Taxable Out;EUR;87;;;;;;;API;One Trading
+11.12.2022 06:26:14;Kraken _;Trade;EUR;27.06506;BTC;0.00069596;KFEE;4.66;;;API;Kraken
+04.12.2022 12:39:21;Kraken _;Interest;;;BTC;0.0000;;;;;API;Kraken
+01.12.2022 17:09:33;Bitpanda Depot - Main;Airdrop;;;BEST;0.06264833;;;Instant trade bonus;;API;Bitpanda
+23.10.2022 14:32:17;Kraken _;Interest;;;BTC;0.0000;;;;;API;Kraken
+13.10.2022 11:33:13;Kraken _;Trade;EUR;10.43982;BTC;0.00040961;KFEE;1.76;;;API;Kraken
+01.10.2022 09:30:24;Personal Depot 3;Deposit;;;BTC;0.03907588;BTC;0.000016;;;Manual;Manual
+01.10.2022 09:30:24;Personal Depot 4;Withdrawal;BTC;0.03907588;;;;;;;Manual;Manual
+27.09.2022 19:21:12;Binance Depot;Trade;ADA;0.15719189;BNB;0.00018161;BNB;0.00000363;;;API;Binance
+18.09.2022 01:52:10;Binance Depot;Interest;;;BNB;0;;;Locked;;API;Binance
+07.09.2022 14:28:35;Kraken _;Interest;;;BTC;0;;;;;API;Kraken
+29.08.2022 01:44:34;Binance Depot;Interest;;;BNB;0;;;Locked;;API;Binance
+21.08.2022 02:00:36;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+16.08.2022 01:41:01;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+10.08.2022 14:27:56;Kraken _;Interest;;;BTC;0.0000;;;;;API;Kraken
+05.08.2022 03:24:28;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+31.07.2022 01:57:06;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+25.07.2022 03:09:36;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+20.07.2022 02:06:39;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+15.07.2022 02:04:27;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+10.07.2022 21:58:05;Kraken _;Trade;EUR;43.41287;BTC;0.00157865;EUR;0.0694;;;API;Kraken
+10.07.2022 02:07:30;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+04.07.2022 02:01:16;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+29.06.2022 01:49:05;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+28.06.2022 05:23:01;Crypto.org Depot;Staking;;;CRO;6.78192785;CRO;0.0002;MsgWithdrawDelegatorReward;;Chain;Cronos POS
+23.06.2022 01:47:47;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+17.06.2022 01:46:12;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+11.06.2022 01:45:06;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+09.06.2022 13:30:23;Bitpanda Depot - Main;Non-Taxable In;;;EUR;44;;;Reserved for trade;;API;Bitpanda
+05.06.2022 01:46:44;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+30.05.2022 01:57:34;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+23.05.2022 02:03:16;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+22.05.2022 13:30:23;Bitpanda Depot - Main;Airdrop;;;BEST;0.05835987;;;Instant trade bonus;;API;Bitpanda
+15.05.2022 13:31:03;Bitpanda Depot - Main;Trade;EUR;44;BTC;0.0016979;;;;;API;Bitpanda
+12.05.2022 01:23:25;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+30.04.2022 02:03:58;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+18.04.2022 01:22:23;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+10.04.2022 12:05:13;Bitpanda Depot - Main;Airdrop;;;BEST;0.01558951;;;Reward;;API;Bitpanda
+08.04.2022 02:05:37;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+03.04.2022 00:38:27;Crypto.com App Depot;Interest;;;BTC;0.0000;;;Supercharger Reward;;CSV;Crypto.com App
+27.03.2022 18:22:29;Crypto.com App Depot;Interest;;;BTC;0.0000;;;Supercharger Reward;;CSV;Crypto.com App
+22.03.2022 02:05:43;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+16.03.2022 18:23:12;Crypto.com App Depot;Interest;;;BTC;0.0000;;;Supercharger Reward;;CSV;Crypto.com App
+10.03.2022 18:21:36;Crypto.com App Depot;Interest;;;BTC;0.0000;;;Supercharger Reward;;CSV;Crypto.com App
+10.03.2022 14:30:28;Bitpanda Depot - Main;Non-Taxable In;;;EUR;44;;;;;API;Bitpanda
+05.03.2022 02:09:25;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+28.02.2022 05:34:13;Crypto.com App Depot;Airdrop;;;LUNA;0.000347;;;Adjustment (Credit);;CSV;Crypto.com App
+27.02.2022 14:30:15;Bitpanda Depot - Main;Trade;EUR;44;BTC;0.00190056;;;;;API;Bitpanda
+27.02.2022 02:08:17;Binance Depot;Interest;;;BTC;0;;;Flexible;;API;Binance
+22.02.2022 12:16:16;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+18.02.2022 03:22:59;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+14.02.2022 04:38:10;Binance Depot;Interest;;;FUN;0.00272565;;;Flexible;;API;Binance
+10.02.2022 04:11:29;Binance Depot;Interest;;;FUN;0.00272491;;;Flexible;;API;Binance
+06.02.2022 18:13:06;Crypto.com App Depot;Interest;;;BTC;0.0000;;;Supercharger Reward;;CSV;Crypto.com App
+01.02.2022 03:28:30;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+27.01.2022 02:38:33;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+25.01.2022 20:05:03;Crypto.com App Depot;Bounty;;;CRO;4;;;Mission Rewards Deposit;;CSV;Crypto.com App
+23.01.2022 14:30:44;Bitpanda Depot - Main;Airdrop;;;BEST;0.06930303;;;Instant trade bonus;;API;Bitpanda
+23.01.2022 04:38:48;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+19.01.2022 04:47:49;Binance Depot;Interest;;;FUN;0.00190215;;;Flexible;;API;Binance
+15.01.2022 03:24:41;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+12.01.2022 02:35:12;Binance Depot;Interest;;;BNB;0;;;Locked;;API;Binance
+07.01.2022 03:40:12;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+05.01.2022 00:21:14;Crypto.com App Depot;Interest;;;DOGE;0.12827901;;;Supercharger Reward;;CSV;Crypto.com App
+02.01.2022 00:21:56;Crypto.com App Depot;Interest;;;DOGE;0.12827901;;;Supercharger Reward;;CSV;Crypto.com App
+30.12.2021 03:31:38;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+27.12.2021 02:45:38;Binance Depot;Interest;;;BNB;0;;;Locked;;API;Binance
+26.12.2021 12:06:27;Bitpanda Depot - Main;Airdrop;;;BEST;0.01434405;;;Reward;;API;Bitpanda
+24.12.2021 02:46:40;Binance Depot;Interest;;;BNB;0;;;Locked;;API;Binance
+21.12.2021 02:43:59;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+18.12.2021 02:43:41;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+15.12.2021 03:26:20;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+13.12.2021 09:46:27;Bitpanda Depot - Main;Non-Taxable In;;;EUR;87;;;;;API;Bitpanda
+12.12.2021 04:18:42;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+09.12.2021 04:21:26;Binance Depot;Interest;;;FUN;0.00090607;;;Flexible;;API;Binance
+07.12.2021 02:49:11;Crypto.com App Depot;Interest;;;CUDOS;0.84771897;;;Supercharger Reward;;CSV;Crypto.com App
+05.12.2021 14:31:01;Bitpanda Depot - Main;Trade;EUR;44;BTC;0.00262532;;;;;API;Bitpanda
+04.12.2021 04:21:50;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+02.12.2021 00:21:48;Crypto.com App Depot;Interest;;;ETH;0.00000229;;;Supercharger Reward;;CSV;Crypto.com App
+29.11.2021 00:23:16;Crypto.com App Depot;Interest;;;ETH;0.00000229;;;Supercharger Reward;;CSV;Crypto.com App
+26.11.2021 00:30:19;Crypto.com App Depot;Interest;;;BTC;0.00000627;;;Crypto Earn;;CSV;Crypto.com App
+23.11.2021 02:42:41;Crypto.com App Depot;Interest;;;CUDOS;0.84771897;;;Supercharger Reward;;CSV;Crypto.com App
+20.11.2021 18:19:22;Crypto.com App Depot;Airdrop;;;CRO;178.14040593;;;Card Rebate;;CSV;Crypto.com App
+20.11.2021 02:46:58;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+17.11.2021 02:50:54;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+14.11.2021 02:47:55;Crypto.com App Depot;Interest;;;CUDOS;0.84771897;;;Supercharger Reward;;CSV;Crypto.com App
+11.11.2021 02:53:17;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+08.11.2021 02:52:52;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+04.11.2021 04:37:44;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+31.10.2021 03:23:30;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+27.10.2021 03:04:11;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+23.10.2021 03:36:11;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+20.10.2021 00:19:47;Crypto.com App Depot;Interest;;;ETH;0.00000229;;;Supercharger Reward;;CSV;Crypto.com App
+17.10.2021 13:30:32;Bitpanda Depot - Main;Airdrop;;;BEST;0.0624583;;;Instant trade bonus;;API;Bitpanda
+16.10.2021 00:33:19;Crypto.com App Depot;Interest;;;BTC;0.00000934;;;Crypto Earn;;CSV;Crypto.com App
+12.10.2021 02:41:06;Binance Depot;Interest;;;BNB;0;;;Locked;;API;Binance
+08.10.2021 03:05:03;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+03.10.2021 04:02:32;Binance Depot;Interest;;;BNB;0.0000;;;Locked;;API;Binance
+02.10.2021 10:49:11;Crypto.com App Depot;Airdrop;;;CRO;1.32391865;;;Card Cashback;;CSV;Crypto.com App
+28.09.2021 03:37:48;Binance Depot;Interest;;;BTC;0.0000;;;Flexible;;API;Binance
+23.09.2021 04:18:24;Binance Depot;Interest;;;BNB;0;;;BNB Vault;;API;Binance
+19.09.2021 13:30:22;Bitpanda Depot - Main;Trade;EUR;44;BTC;0.00227293;;;;;API;Bitpanda
+18.09.2021 15:00:25;Crypto.com App Depot;Airdrop;;;CRO;2.08929533;;;Card Cashback;;CSV;Crypto.com App
+18.09.2021 03:32:54;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+12.09.2021 03:58:37;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+09.09.2021 13:30:27;Bitpanda Depot - Main;Non-Taxable In;;;EUR;44;;;;;API;Bitpanda
+07.09.2021 04:30:07;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+05.09.2021 13:31:10;Bitpanda Depot - Main;Airdrop;;;BEST;0.05605501;;;Instant trade bonus;;API;Bitpanda
+03.09.2021 04:02:45;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+29.08.2021 03:37:14;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+24.08.2021 04:48:16;Binance Depot;Interest;;;BNB;0;;;BNB Vault;;API;Binance
+20.08.2021 18:19:21;Crypto.com App Depot;Airdrop;;;CRO;95.40656985;;;Card Rebate;;CSV;Crypto.com App
+19.08.2021 04:38:57;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+13.08.2021 03:20:50;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+03.08.2021 03:04:58;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+25.07.2021 13:30:37;Bitpanda Depot - Main;Airdrop;;;BEST;0.05381505;;;Instant trade bonus;;API;Bitpanda
+24.07.2021 01:18:42;Crypto.com App Depot;Interest;;;BTC;0.00000794;;;Crypto Earn;;CSV;Crypto.com App
+13.07.2021 04:08:54;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+04.07.2021 13:30:44;Bitpanda Depot - Main;Trade;EUR;44;BTC;0.00227126;;;;;API;Bitpanda
+03.07.2021 03:53:56;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+01.07.2021 13:30:48;Bitpanda Depot - Main;Non-Taxable In;;;EUR;44;;;;;API;Bitpanda
+22.06.2021 05:46:14;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+12.06.2021 03:19:22;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+11.06.2021 17:34:22;Crypto.com App Depot;Airdrop;;;CRO;1.39954407;;;Card Cashback;;CSV;Crypto.com App
+31.05.2021 03:13:47;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+21.05.2021 03:52:40;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+11.05.2021 03:37:46;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+05.05.2021 04:13:48;Binance Depot;Interest;;;USDT;0.02637174;;;Flexible Savings;;API;Binance
+30.04.2021 02:15:45;Binance Depot;Interest;;;USDT;0.02633565;;;Flexible Savings;;API;Binance
+24.04.2021 04:08:15;Crypto.com App Depot;Interest;;;BTC;0;;;Supercharger Reward;;CSV;Crypto.com App
+22.04.2021 15:17:04;Crypto.com App Depot;Airdrop;;;CRO;0.10646620;;;Card Cashback;;CSV;Crypto.com App
+19.04.2021 04:12:34;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+15.04.2021 03:28:22;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+11.04.2021 02:37:42;Binance Depot;Interest;;;BUSD;0.13706;;;Savings Trail Fund;;API;Binance
+08.04.2021 04:20:02;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+06.04.2021 03:44:49;Binance Depot;Interest;;;BTC;0.0000;;;Flexible Savings;;API;Binance
+01.04.2021 23:47:05;Crypto.com App Depot;Interest;;;BTC;0;;;Supercharger Reward;;CSV;Crypto.com App
+24.03.2021 16:46:34;Crypto.com App Depot;Interest;;;BTC;0;;;Supercharger Reward;;CSV;Crypto.com App
+23.03.2021 10:45:53;Crypto.com App Depot;Airdrop;;;CRO;0.14310934;;;Card Cashback;;CSV;Crypto.com App
+13.03.2021 11:56:33;Crypto.com App Depot;Interest;;;LUNC;0.000256;;;Supercharger Reward;;CSV;Crypto.com App
+01.03.2021 00:24:57;Crypto.com App Depot;Interest;;;BTC;0.00001152;;;Crypto Earn;;CSV;Crypto.com App
+21.02.2021 12:25:58;Crypto.com App Depot;Trade;EUR;87.72;BTC;0.003;;;EUR -> BTC;;CSV;Crypto.com App
+12.02.2021 09:36:39;Crypto.com App Depot;Interest;;;ETH;8.8E-7;;;Supercharger Reward;;CSV;Crypto.com App
+25.01.2021 08:51:21;Crypto.com App Depot;Interest;;;ETH;8.8E-7;;;Supercharger Reward;;CSV;Crypto.com App

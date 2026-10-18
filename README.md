@@ -56,6 +56,30 @@ Build and run:
 ```
 cmake -B cmake-build-debug && cmake --build cmake-build-debug -j
 ./cmake-build-debug/NF_Tx_Core_WalletDump /path/to/trans.csv 5
+```
+
+## Test data (`fixtures/`)
+
+`fixtures/` holds a **reduced, anonymized subset** of the real exports
+(same file names as the modes above), committed so CI / fresh checkouts
+can run the tester end-to-end. The full exports stay local-only (see
+`.gitignore`); the interactive modes prefer a real file at the repo root
+and fall back to `fixtures/` when it is absent.
+
+How the fixtures differ from the real exports:
+- reduced: ~200 of ~2440 BlockPit lines / ~100 of ~247 CRO lines - a
+deterministic time-strided sample that keeps every transaction
+label/kind (including the one-line ones); one malformed real record
+(a quoted comment with an embedded newline, which the line-based core
+parser skips anyway) is dropped
+- `kraken_trades.csv` (Kraken mode) is the synthetic fixture verbatim
+from the core repo's `Tests/fixtures/` - an intentional malformed line
+is in it there (the core suite asserts 2 parsed / 1 failed on it)
+- anonymized: transaction ids blanked, personal integration labels
+renamed to `Personal Depot n` / `Cold Storage n`, one raw wallet address
+gone, all amounts scaled by a fixed factor (x0.87, same decimal
+precision), all dates shifted back by one year
+- line endings preserved (BlockPit CRLF, CRO/card LF)
 
 ## License
 

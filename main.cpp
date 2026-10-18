@@ -6,6 +6,24 @@
 #include "StaticPrices.h"
 #include "AssetValue.h"
 
+// The real export at the repo root wins (local dev reads the full history);
+// the committed reduced+anonymized fixtures under fixtures/ are the fallback
+// for CI and fresh checkouts. `name` is the bare file name.
+static std::string resolveCsv(const std::string &name) {
+    const std::vector<std::string> candidates = {
+            "../" + name,               // repo root, run from the build dir
+            "./" + name,               // run from the repo root
+            "../fixtures/" + name,     // committed fixtures (CI / fresh checkout)
+            "./fixtures/" + name};
+    for (const auto &path : candidates) {
+        if (std::filesystem::exists(path)) {
+            std::cout << "Found CSV at: " << path << std::endl;
+            return path;
+        }
+    }
+    return "../" + name;   // keep the classic default for the error message
+}
+
 int main() {
 
     bool isCrypto = true;
@@ -40,10 +58,10 @@ int main() {
 
     switch (mode) {
         case 1:
-            filename = "../crypto_sample_transactions.csv";
+            filename = resolveCsv("crypto_sample_transactions.csv");
             break;
         case 2:
-            filename = "../card_transactions_record_.csv";
+            filename = resolveCsv("card_transactions_record_.csv");
             isCard = true;
             isCrypto = false;
             break;
@@ -70,19 +88,25 @@ int main() {
 
             break;
         case 4:
-            filename = "../crypto_sample_transactions.csv";
+            filename = resolveCsv("crypto_sample_transactions.csv");
             mode = 1;   // Default = CDC
             break;
         case 5:
-            filename = "../crypto_sample_transactions.csv";  // Use the same Kraken test file
+            // Kraken mode parses the Kraken trade format - the CRO-format
+            // crypto_sample file was always 0/101 for it (wrong format), so
+            // default to the synthetic Kraken fixture.
+            filename = resolveCsv("kraken_trades.csv");
             mode = 5;   // Kraken enum value (will become 4 after mode--)
             break;
         case 6: {
             // Try multiple possible paths for the BlockPit test CSV
+            // (real export first, committed fixtures as fallback)
             std::string possiblePaths[] = {
                 "blockpit_transactions.csv",
                 "../blockpit_transactions.csv",
-                "./blockpit_transactions.csv"
+                "./blockpit_transactions.csv",
+                "../fixtures/blockpit_transactions.csv",
+                "./fixtures/blockpit_transactions.csv"
             };
             filename = "";
             for (const auto& path : possiblePaths) {
