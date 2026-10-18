@@ -2,6 +2,22 @@
 
 This C++ program serves as a tester for the NF_TX_Core library, which manages financial transactions and balances. The tester demonstrates the functionality of the library through various operations.
 
+## Build
+
+Built and run against the **canonical `Nf_Tx_Core` checkout** (sibling dir,
+default `../Nf_Tx_Core`): `StaticPrices.h` is single-sourced from its
+`Price/` dir (no local copy - it lives in the core repo since 2026-10-18),
+and at runtime `libNF_Tx_Core.so` is dlopened from its `cmake-build-debug`
+(see the path in `main.cpp`).
+
+```
+cmake -B cmake-build-debug && cmake --build cmake-build-debug -j
+```
+
+If your core checkout is renamed/elsewhere: `cmake -B cmake-build-debug
+-DNF_TX_CORE_DIR=/path/to/core` (the runtime lib path in `main.cpp` or
+`NF_Tx_Core_WalletDump`'s first argument is adjusted separately).
+
 ## Usage
 
 1. Load the shared library `libNF_Tx_Core.so`, from the NF_TX_Core project.
