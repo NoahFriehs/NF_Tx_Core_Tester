@@ -1,6 +1,10 @@
 # NF_Tx_Core_Tester
 
-This C++ program serves as a tester for the NF_TX_Core library, which manages financial transactions and balances. The tester demonstrates the functionality of the library through various operations.
+Interactive CLI tester for **Nf_Tx_Core** (the C++20 core behind the
+CDCsvParser Android app). Its job is to prove core behavior *before* it is
+synced into the app — the ASan pre-gate for core changes, not a product of
+its own. Two entry points: the interactive prompt (`main`) and the
+`NF_Tx_Core_WalletDump` CLI (below).
 
 ## Build
 
@@ -18,14 +22,25 @@ If your core checkout is renamed/elsewhere: `cmake -B cmake-build-debug
 -DNF_TX_CORE_DIR=/path/to/core` (the runtime lib path in `main.cpp` or
 `NF_Tx_Core_WalletDump`'s first argument is adjusted separately).
 
+After any change in the core repo, rebuild its `cmake-build-debug` too —
+the dlsym'd C API in `main.cpp` is declared by hand and must match the core
+headers exactly (a stale 3-arg `initWithData` type vs the core's 4th
+parse-budget arg bit us in 2026-10-18; nothing surfaced until a rebuild).
+
 ## Usage
 
-1. Load the shared library `libNF_Tx_Core.so`, from the NF_TX_Core project.
-2. Choose the mode: CDC, Card, Custom, or Default.
+Interactive prompt flow (no args):
+
+1. Loads the shared library `libNF_Tx_Core.so` from the core checkout.
+2. Choose the mode: **1=CDC, 2=Card, 3=Custom** (own file, then crypto or
+card), **4=Default, 5=Kraken, 6=BlockPit**.
 3. Optionally enable extended output.
-4. Input the necessary data file based on the chosen mode.
-5. Perform operations such as initialization, setting data, calculating balances, saving, and loading.
-6. Retrieve and display results.
+4. Pick the price source (1 = the core's static fallback table — offline).
+5. The data file resolves automatically: a real export at the repo root
+   (same file name) is preferred, otherwise the committed `fixtures/`
+   (see below).
+6. Initializes, sets the data, calculates balances, optionally saves/loads —
+   wallets, cards and the daily series are displayed.
 
 
 ## Wallet dump tool (`NF_Tx_Core_WalletDump`)
