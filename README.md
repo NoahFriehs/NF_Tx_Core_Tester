@@ -1,10 +1,17 @@
 # NF_Tx_Core_Tester
 
-Interactive CLI tester for **Nf_Tx_Core** (the C++20 core behind the
-CDCsvParser Android app). Its job is to prove core behavior *before* it is
-synced into the app — the ASan pre-gate for core changes, not a product of
-its own. Two entry points: the interactive prompt (`main`) and the
-`NF_Tx_Core_WalletDump` CLI (below).
+CLI tester for **Nf_Tx_Core** (the C++20 core behind the CDCsvParser
+Android app). Its job is to prove core behavior *before* it is synced into
+the app — the ASan pre-gate for core changes, not a product of its own.
+
+One binary, two ways in:
+
+- **argv CLI** — dumps the core's **daily wallet series** (`initWithData`
+  -> `getDailyWalletSeries` — the same calls the Android app makes) for a
+  transaction CSV. The ground truth for the balance side of the app's
+  charts, without re-implementing trade semantics outside the core.
+- **Interactive prompt** (no args) — the classic tester loop: mode choice,
+  price source, per-symbol asset audit, save/load round-trip.
 
 ## Build
 
@@ -19,15 +26,40 @@ cmake -B cmake-build-debug && cmake --build cmake-build-debug -j
 ```
 
 If your core checkout is renamed/elsewhere: `cmake -B cmake-build-debug
--DNF_TX_CORE_DIR=/path/to/core` (the runtime lib path in `main.cpp` or
-`NF_Tx_Core_WalletDump`'s first argument is adjusted separately).
+-DNF_TX_CORE_DIR=/path/to/core` (the runtime lib path in `main.cpp` or the
+CLI's first argument is adjusted separately).
 
 After any change in the core repo, rebuild its `cmake-build-debug` too —
-the dlsym'd C API in `main.cpp` is declared by hand and must match the core
-headers exactly (a stale 3-arg `initWithData` type vs the core's 4th
-parse-budget arg bit us in 2026-10-18; nothing surfaced until a rebuild).
+the dlsym'd C API is declared by hand and must match the core headers
+exactly (a stale 3-arg `initWithData` type vs the core's 4th parse-budget
+arg bit us in 2026-10-18; nothing surfaced until a rebuild).
 
 ## Usage
+
+```
+NF_Tx_Core_Tester [path/to/libNF_Tx_Core.so] <csv-file> [mode] [out-file] [date] [--extended]
+```
+
+- `so-path` — optional; default `../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so`
+  (detected as the first argument that is an existing file with a
+  `.so`/`.dll`/`.dylib` in its name)
+- `csv-file` — the transaction file (e.g. a BlockPit export)
+- `mode` — `0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit` (default 5)
+- `out-file` — default `wallet_series.txt`
+- `date` — optional `YYYY-MM-DD`: writes a per-symbol snapshot
+  (`CUR;BALANCE;BONUS`, last series day at/before that date) instead of the
+  full series
+- `--extended` — also prints the core's wallet/transaction strings to the
+  console (the series file stays clean either way)
+- `--help` / `-h` — usage
+
+Output line format (core shape): `CUR;YYYY-MM-DD;BALANCE;BONUS`, ascending
+per symbol. The core's own log lines go to the console; the output file is
+clean.
+
+```
+./cmake-build-debug/NF_Tx_Core_Tester /path/to/trans.csv 5
+```
 
 Interactive prompt flow (no args):
 
@@ -42,36 +74,23 @@ card), **4=Default, 5=Kraken, 6=BlockPit**.
 6. Initializes, sets the data, calculates balances, optionally saves/loads —
    wallets, cards and the daily series are displayed.
 
+## CTest
 
-## Wallet dump tool (`NF_Tx_Core_WalletDump`)
+`ctest --test-dir cmake-build-debug` runs the **core's committed fixtures**
+(`${NF_TX_CORE_DIR}/Tests/fixtures/`) through the argv CLI in no-price
+modes (`cdc_crypto`→0, `cdc_card`→1, `kraken_trades`→4,
+`blockpit_export`→5 — offline; the CI network path is a 429 minefield, so
+price modes stay out of ctest). Each test asserts the parse succeeded AND
+produced a non-empty series — the #44-class regression (parse OK, wrong
+series) fails here. Tests load `NF_TX_CORE_SO` (default: the core's local
+debug build). The wallet **assertions** themselves live in the core's own
+suite; ctest asserts the parse/series lines through the app's exact call
+path.
 
-A small CLI tool that dumps the core's **daily wallet series**
-(`initWithData` -> `getDailyWalletSeries` — the same calls the Android
-app makes) for a transaction CSV. It is the ground truth for the balance
-side of the app's charts, without re-implementing trade semantics outside
-the core.
-
-```
-NF_Tx_Core_WalletDump [path/to/libNF_Tx_Core.so] <csv-file> [mode] [out-file] [date]
-```
-
-- `so-path` — optional; default `../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so`
-- `mode` — `0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit` (default 5)
-- `out-file` — default `wallet_series.txt`
-- `date` — optional `YYYY-MM-DD`: writes a per-symbol snapshot
-  (`CUR;BALANCE;BONUS`, last series day at/before that date) instead of the
-  full series
-
-Output line format (core shape): `CUR;YYYY-MM-DD;BALANCE;BONUS`, ascending
-per symbol. The core's own log lines go to the console; the output file is
-clean.
-
-Build and run:
-
-```
-cmake -B cmake-build-debug && cmake --build cmake-build-debug -j
-./cmake-build-debug/NF_Tx_Core_WalletDump /path/to/trans.csv 5
-```
+The core repo's CI runs these automatically: after its plain Release
+`build-shared` step, it fetches this repo (`@main`) and runs the same
+`ctest` against `build-shared/libNF_Tx_Core.so` (see
+`Nf_Tx_Core/.github/workflows/ci.yml`).
 
 ## Test data (`fixtures/`)
 
@@ -108,5 +127,3 @@ This work is licensed under a
 [cc-by-nc-nd]: http://creativecommons.org/licenses/by-nc-nd/4.0/
 [cc-by-nc-nd-image]: https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png
 [cc-by-nc-nd-shield]: https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg
-
-
