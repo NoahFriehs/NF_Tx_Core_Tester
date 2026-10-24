@@ -40,9 +40,11 @@ arg bit us in 2026-10-18; nothing surfaced until a rebuild).
 NF_Tx_Core_Tester [path/to/libNF_Tx_Core.so] <csv-file> [mode] [out-file] [date] [--extended]
 ```
 
-- `so-path` — optional; default `../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so`
-  (detected as the first argument that is an existing file with a
-  `.so`/`.dll`/`.dylib` in its name)
+- `so-path` — optional; detected as the first argument that is an existing
+  file with a `.so`/`.dll`/`.dylib` in its name. Without one, a candidate
+  chain is tried in order — `../../Nf_Tx_Core/cmake-build-debug/…`,
+  `../Nf_Tx_Core/cmake-build-debug/…` (the standard sibling checkout),
+  `./libNF_Tx_Core.so` — and the first that exists wins
 - `csv-file` — the transaction file (e.g. a BlockPit export)
 - `mode` — `0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit` (default 5)
 - `out-file` — default `wallet_series.txt`
@@ -80,10 +82,13 @@ card), **4=Default, 5=Kraken, 6=BlockPit**.
 (`${NF_TX_CORE_DIR}/Tests/fixtures/`) through the argv CLI in no-price
 modes (`cdc_crypto`→0, `cdc_card`→1, `kraken_trades`→4,
 `blockpit_export`→5 — offline; the CI network path is a 429 minefield, so
-price modes stay out of ctest). Each test asserts the parse succeeded AND
-produced a non-empty series — the #44-class regression (parse OK, wrong
-series) fails here. Tests load `NF_TX_CORE_SO` (default: the core's local
-debug build). The wallet **assertions** themselves live in the core's own
+price modes stay out of ctest). Every test asserts the parse succeeded; the
+three asset fixtures additionally assert a non-empty series (the #44-class
+regression — parse OK, wrong/empty series — fails there), while
+`cdc_card` asserts the parse only: a card file legitimately yields an EMPTY
+series (card = spending, no held assets). Tests load `NF_TX_CORE_SO`
+(default: the core's local debug build; the core's CI points it at its
+release `build-shared` lib instead). The wallet **assertions** themselves live in the core's own
 suite; ctest asserts the parse/series lines through the app's exact call
 path.
 

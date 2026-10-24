@@ -7,7 +7,9 @@
  *
  *    NF_Tx_Core_Tester [path/to/libNF_Tx_Core.so] <csv-file> [mode] [out-file] [date] [--extended]
  *
- *      so-path    optional; default: ../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so
+ *      so-path    optional; default: first existing of {
+ *          ../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so,
+ *          ../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so, ./libNF_Tx_Core.so }
  *      csv-file   the transaction file (e.g. a BlockPit export)
  *      mode       0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit (default: 5)
  *      out-file   series output file (default: wallet_series.txt)
@@ -75,7 +77,7 @@ namespace
         std::cerr << "Usage: " << program
                   << " [path/to/libNF_Tx_Core.so] <csv-file> [mode] [out-file] [date] [--extended]" << std::endl
                   << std::endl
-                  << "  so-path    optional; default: ../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so" << std::endl
+                  << "  so-path    optional; auto-detected by default (../../Nf_Tx_Core/,\n                     ../Nf_Tx_Core/ and ./ build dirs, first existing wins)" << std::endl
                   << "  csv-file   the transaction file (e.g. a BlockPit export)" << std::endl
                   << "  mode       0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit (default: 5)" << std::endl
                   << "  out-file   series output file (default: wallet_series.txt)" << std::endl
