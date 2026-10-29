@@ -155,9 +155,12 @@ namespace
         // (0 = no budget), added with the core's parse-timeout work.
         auto initWithData = reinterpret_cast<bool (*)(const std::vector<std::string> &, int, const std::string &, long long)>(
             dlsym(handle, "initWithData"));
-        // cxx11-mangled: std::vector<std::string> getDailyWalletSeries()
+        // Plain C name: part of the core's dlsym surface (declared in its
+        // library.h extern "C" block). Plain name only, no mangled
+        // fallback: a core/tester version skew fails here loudly, so the
+        // two repos must stay in lockstep.
         auto getDailyWalletSeries = reinterpret_cast<std::vector<std::string> (*)()>(
-            dlsym(handle, "_Z20getDailyWalletSeriesB5cxx11v"));
+            dlsym(handle, "getDailyWalletSeries"));
         if (!initWithData || !getDailyWalletSeries)
         {
             std::cerr << "ERROR: core symbols missing (initWithData / getDailyWalletSeries). "
