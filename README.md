@@ -46,7 +46,7 @@ NF_Tx_Core_Tester [path/to/libNF_Tx_Core.so] <csv-file> [mode] [out-file] [date]
   `../Nf_Tx_Core/cmake-build-debug/…` (the standard sibling checkout),
   `./libNF_Tx_Core.so` — and the first that exists wins
 - `csv-file` — the transaction file (e.g. a BlockPit export)
-- `mode` — `0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit` (default 5)
+- `mode` — `0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit 6=CurveCard` (default 5)
 - `out-file` — default `wallet_series.txt`
 - `date` — optional `YYYY-MM-DD`: writes a per-symbol snapshot
   (`CUR;BALANCE;BONUS`, last series day at/before that date) instead of the

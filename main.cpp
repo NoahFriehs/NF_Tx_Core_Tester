@@ -11,7 +11,7 @@
  *          ../../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so,
  *          ../Nf_Tx_Core/cmake-build-debug/libNF_Tx_Core.so, ./libNF_Tx_Core.so }
  *      csv-file   the transaction file (e.g. a BlockPit export)
- *      mode       0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit (default: 5)
+ *      mode       0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit 6=CurveCard (default: 5)
  *      out-file   series output file (default: wallet_series.txt)
  *      date       optional YYYY-MM-DD: instead of the full series, write a
  *                 per-symbol snapshot ("CUR;BALANCE;BONUS" with the last
@@ -79,7 +79,7 @@ namespace
                   << std::endl
                   << "  so-path    optional; auto-detected by default (../../Nf_Tx_Core/,\n                     ../Nf_Tx_Core/ and ./ build dirs, first existing wins)" << std::endl
                   << "  csv-file   the transaction file (e.g. a BlockPit export)" << std::endl
-                  << "  mode       0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit (default: 5)" << std::endl
+                  << "  mode       0=CDC 1=Card 2=Default 3=Custom 4=Kraken 5=BlockPit 6=CurveCard (default: 5)" << std::endl
                   << "  out-file   series output file (default: wallet_series.txt)" << std::endl
                   << "  date       optional YYYY-MM-DD: per-symbol snapshot \"CUR;BALANCE;BONUS\""
                        " with the last series day at/before that date" << std::endl
@@ -678,7 +678,14 @@ int main(int argc, char** argv)
     int mode = 5;                     // BlockPit (the app's main import path)
     std::string outFile = "wallet_series.txt";
     std::string date;
-    if (rest.size() > 1) mode = std::atoi(rest[1].c_str());
+    if (rest.size() > 1) {
+        mode = std::atoi(rest[1].c_str());
+        if (mode < 0 || mode > 6) {
+            std::cerr << "mode must be 0-6 (got " << mode << ")" << std::endl;
+            printUsage(argv[0]);
+            return 1;
+        }
+    }
     if (rest.size() > 2) outFile = rest[2];
     if (rest.size() > 3) date = rest[3];
 
